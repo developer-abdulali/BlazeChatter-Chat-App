@@ -20,11 +20,19 @@ import {
 import React, { useState } from "react";
 import SidebarTab from "../SidebarTab/SidebarTab";
 import SidebarList from "../SidebarList/SidebarList";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
 import { useRouter } from "next/router";
 import { auth, db } from "@/utils/firebase";
 import useRooms from "src/Hooks/useRooms";
-
+import useUsers from "src/Hooks/useUsers";
+import useChats from "src/Hooks/useChats";
 const tabs = [
   {
     id: 1,
@@ -43,19 +51,12 @@ const tabs = [
 const Sidebar = ({ user }) => {
   const [menu, setMenu] = useState(1);
   const [creatingRoom, setCreatingRoom] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
   const [roomName, setRoomName] = useState("");
   const router = useRouter();
   const rooms = useRooms();
-
-  console.log("ROOMS data fetching successfully",rooms)
-  const data = [
-    {
-      id: 1,
-      name: "Ali",
-      photoURL:
-        "https://lh3.googleusercontent.com/a/ACg8ocIxxiEnHWnyIzrfxURoSC858hQRDTu74SxiPorSv8zy=s96-c",
-    },
-  ];
+  const users = useUsers(user);
+  const chats = useChats(user);
 
   async function createRoom() {
     if (roomName?.trim()) {
@@ -69,6 +70,33 @@ const Sidebar = ({ user }) => {
       setMenu(2);
       router.push(`/?roomId=${newRoom.id}`);
     }
+  }
+
+  async function searchResultsAndRoom(e) {
+    e.preventDefault();
+    const searchValue = e.target.elements.search.value;
+    const userQuery = query(
+      collection(db, "users"),
+      where("name", "==", searchValue)
+    );
+    const roomQuery = query(
+      collection(db, "rooms"),
+      where("name", "==", searchValue)
+    );
+    const userSnapshot = await getDocs(userQuery);
+    const roomSnapshot = await getDocs(roomQuery);
+    const userResults = userSnapshot?.docs.map((doc) => {
+      const id =
+        doc.id > user.uid ? `${doc.id}${user.uid}` : `${user.uid}${doc.id}`;
+      return { id, ...doc.data() };
+    });
+    const roomResults = roomSnapshot?.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    const searchResults = [...userResults, ...roomResults];
+    setMenu(4);
+    setSearchResults(searchResults);
   }
 
   return (
@@ -88,7 +116,10 @@ const Sidebar = ({ user }) => {
 
       {/* search */}
       <div className="sidebar__search">
-        <form className="sidebar__search--container">
+        <form
+          onSubmit={searchResultsAndRoom}
+          className="sidebar__search--container"
+        >
           <SearchOutlined />
           <input
             type="text"
@@ -116,13 +147,13 @@ const Sidebar = ({ user }) => {
 
       {/* Tabs Chat, Rooms, User  */}
       {menu === 1 ? (
-        <SidebarList title="Chats" data={data} />
+        <SidebarList title="Chats" data={chats} />
       ) : menu === 2 ? (
         <SidebarList title="Rooms" data={rooms} />
       ) : menu === 3 ? (
-        <SidebarList title="Users" data={data} />
+        <SidebarList title="Users" data={users} />
       ) : menu === 4 ? (
-        <SidebarList title="Search Results" data={data} />
+        <SidebarList title="Search Results" data={searchResults} />
       ) : null}
 
       {/* create room dialog */}

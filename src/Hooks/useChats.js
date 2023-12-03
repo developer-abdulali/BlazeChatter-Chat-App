@@ -2,14 +2,14 @@ import { db } from "@/utils/firebase";
 import { collection, orderBy, query } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 
-export default function useRooms() {
+export default function useChats(user) {
   const [snapshot] = useCollection(
-    query(collection(db, "rooms"), orderBy("timestamp", "asc"))
+    query(collection(db, `users/${user.uid}/chats`), orderBy("timestamp", "asc"))
   );
-  const rooms = snapshot?.docs.map((doc) => ({
+  const chats = snapshot?.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
   }));
 
-  return rooms;
+  return chats;
 }
