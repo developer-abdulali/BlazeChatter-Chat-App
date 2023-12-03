@@ -1,4 +1,3 @@
-
 import { auth } from "@/utils/firebase";
 import { Button } from "@mui/material";
 import React from "react";
