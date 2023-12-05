@@ -1,4 +1,5 @@
 import useAuthUser from "src/Hooks/useAuthUser";
+import Chat from "src/components/Chats/Chat";
 import Login from "src/components/Login/Login";
 import Sidebar from "src/components/Sidebar/Sidebar";
 
@@ -11,6 +12,7 @@ export default function Home() {
     <div className="app">
       <div className="app__body">
         <Sidebar user={user}/>
+        <Chat user={user} />
       </div>
     </div>
   );
