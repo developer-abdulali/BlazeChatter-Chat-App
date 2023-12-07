@@ -101,6 +101,7 @@ const Sidebar = ({ user }) => {
 
   return (
     <div className="sidebar">
+      
       {/* hearder */}
       <div className="sidebar__header">
         <div className="sidebar__header--left">

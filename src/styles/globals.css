@@ -13,6 +13,30 @@ a {
   color: inherit;
 }
 
+.image-container {
+  position: relative;
+}
+
+.skeleton-image {
+  width: 100%; /* Set your desired width */
+  height: 100%; /* Set your desired height */
+  background-color: #ddd; /* Set a background color for the skeleton */
+  /* Add any additional styling for the skeleton effect */
+  animation: pulse 1.5s infinite; /* Optional: Add a pulse animation */
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
 :not(input) {
   -webkit-touch-callout: none !important;
   -webkit-user-select: none !important;
@@ -29,6 +53,7 @@ a {
   background-color: white;
   height: 100vh;
   transform-origin: 0% 0%;
+  /* position: fixed; */
   position: relative;
 }
 
@@ -39,7 +64,8 @@ a {
   width: 100%;
   box-shadow: -1px 4px 20px 6px rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  position: relative;
+  position: fixed;
+  /* position: relative; */
   border-top: 1px solid lightgrey;
 }
 
@@ -59,7 +85,8 @@ a {
 @media (max-width: 760px) {
   .app__body {
     display: block;
-    position: relative;
+    position: fixed;
+    /* position: relative; */
     border-radius: 0;
     background-color: white;
     border-top: none;

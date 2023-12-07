@@ -33,9 +33,13 @@ import { nanoid } from "nanoid";
 import useChatMessages from "src/Hooks/useChatMessages";
 import ChatMessages from "../ChatMessages/ChatMessages";
 import useRoom from "src/Hooks/useRoom";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Link from "next/link";
+// import { useRouter } from "next/router";
 
 const Chat = ({ user }) => {
   const router = useRouter();
+  const route = useRouter();
   const [image, setImage] = useState(null);
   const [input, setInput] = useState("");
   const [src, setSrc] = useState("");
@@ -134,10 +138,17 @@ const Chat = ({ user }) => {
     }
   }
 
+  // const handleBackClick = () => {
+  //   route.replace("/");
+  // };
+
   if (!room) return null;
 
   return (
     <div className="chat">
+      {/* <div onClick={handleBackClick} className="sidebar__header">
+        <ArrowBackIcon />
+      </div> */}
       <div className="chat__background" />
       {/* chat header */}
       <div className="chat__header">
