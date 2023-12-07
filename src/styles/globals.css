@@ -257,6 +257,9 @@ em {
     background-color: #ebebeb;
     transition: background-color 200ms;
   }
+  #backbtn {
+    display: none;
+  }
 }
 
 @keyframes noresult-fade-in {
@@ -613,7 +616,6 @@ em {
   }
 }
 
-/* Login */
 .app {
   display: grid;
   place-items: center;
@@ -629,6 +631,7 @@ em {
   width: 100%;
   display: grid;
   place-items: center;
+  padding: 0px 10px;
 }
 
 .login__background {
@@ -664,7 +667,7 @@ em {
   background-color: #0a8d48 !important;
   color: white;
 }
-
+/* mediaquery for large screens */
 @media (max-width: 760px) {
   .login__container {
     padding: 100px 50px;
@@ -674,7 +677,7 @@ em {
     width: 100%;
   }
 }
-
+/* mediaquery for small screens */
 @media (max-width: 435px) {
   .login__container {
     padding: 50px 25px;
@@ -692,6 +695,7 @@ em {
   padding: 0 10px;
   height: 54px;
   position: absolute;
+  background: #ededed;
   width: calc(100% + 56px);
   bottom: 0;
   z-index: 5;

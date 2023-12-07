@@ -138,17 +138,14 @@ const Chat = ({ user }) => {
     }
   }
 
-  // const handleBackClick = () => {
-  //   route.replace("/");
-  // };
-
   if (!room) return null;
 
   return (
     <div className="chat">
-      {/* <div onClick={handleBackClick} className="sidebar__header">
+      {/* go back button */}
+      <Link href="/" className="sidebar__header" id="backbtn" style={{ zIndex: 50 }}>
         <ArrowBackIcon />
-      </div> */}
+      </Link>
       <div className="chat__background" />
       {/* chat header */}
       <div className="chat__header">
