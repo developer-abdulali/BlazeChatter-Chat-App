@@ -12,7 +12,7 @@ const Login = () => {
         <div className="login__container">
           <img src="/logo.png" alt="Logo" />
           <div className="login__text">
-            <h1>Sign in to Realtime Chat App</h1>
+            <h1>Sign in to Blaze Chatter App</h1>
           </div>
           <Button onClick={() => signInWithGoogle()}>
             Sign in with Google

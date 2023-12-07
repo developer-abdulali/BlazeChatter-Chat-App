@@ -1,5 +1,11 @@
 import { AddPhotoAlternate, MoreVert } from "@mui/icons-material";
-import { Avatar, CircularProgress, IconButton, Menu, MenuItem } from "@mui/material";
+import {
+  Avatar,
+  CircularProgress,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import MediaPreview from "../MediaPreview/MediaPreview";
@@ -16,7 +22,12 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import Compressor from "compressorjs";
-import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
 import { db, storage } from "@/utils/firebase";
 import { nanoid } from "nanoid";
 import useChatMessages from "src/Hooks/useChatMessages";
@@ -88,7 +99,40 @@ const Chat = ({ user }) => {
     }
   };
 
-
+  async function deleteRoom() {
+    setOpenMenu(null);
+    setDeleting(true);
+    try {
+      const userChatRef = doc(db, `users/${userId}/chats/${roomId}`);
+      const roomRef = doc(db, `rooms/${roomId}`);
+      const roomMessagesRef = collection(db, `rooms/${roomId}/messages`);
+      const roomMessages = await getDocs(query(roomMessagesRef));
+      const audioFiles = [];
+      const imageFiles = [];
+      roomMessages?.docs.forEach((doc) => {
+        if (doc.data().audioName) {
+          audioFiles.push(doc.data().audioName);
+        } else if (doc.data().imageName) {
+          imageFiles.push(doc.data().imageName);
+        }
+      });
+      await Promise.all([
+        deleteDoc(userChatRef),
+        deleteDoc(roomRef),
+        ...roomMessages.docs.map((doc) => deleteDoc(doc.ref)),
+        ...imageFiles.map((image) =>
+          deleteDoc(deleteObject(ref(storage, `images${image}`)))
+        ),
+        ...audioFiles.map((audio) =>
+          deleteObject(deleteObject(ref(storage, `audio${audio}`)))
+        ),
+      ]);
+    } catch (error) {
+      console.error("Couldn't delete room", error.message);
+    } finally {
+      setDeleting(false);
+    }
+  }
 
   if (!room) return null;
 
@@ -128,8 +172,7 @@ const Chat = ({ user }) => {
             onClose={() => setOpenMenu(null)}
             keepMounted
           >
-            <MenuItem>Delete Room</MenuItem>
-            {/* <MenuItem onClick={deleteRoom}>Delete Room</MenuItem> */}
+            <MenuItem onClick={deleteRoom}>Delete Room</MenuItem>
           </Menu>
         </div>
       </div>
@@ -161,49 +204,8 @@ const Chat = ({ user }) => {
           <CircularProgress />
         </div>
       )}
-
     </div>
-    
   );
 };
 
 export default Chat;
-
-
-
-
-// async function deleteRoom(){
-//   setOpenMenu(null)
-//   setDeleting(true)
-
-//   try {
-    
-//     const userChatRef = doc(db, `users/${userId}/chats/${roomId}`);
-//     const roomRef = doc(db, `rooms/${roomId}`);
-//     const roomMessagesRef = collection(db, `rooms/${roomId}/messages`)
-//     const roomMessages = await getDocs(query(roomMessagesRef))
-//     const audioFile = []
-//     const imageFile = []
-//     roomMessages?.docs.forEach(doc =>{
-//       if(doc.data().audioName){
-//       audioFile.push(doc.data().audioName)
-//       } else if(doc.data().imageName){
-//         imageFile.push(doc.data().imageName)
-//       }
-//     })
-//     await Promise.all([
-//       deleteDoc(roomMessagesRef),
-//       deleteDoc(roomRef),
-//       ...roomMessages.docs.map(doc => deleteDoc(doc.ref)),
-//       ...imageFile.map(imageName => deleteDoc(
-//         deleteObject(ref(storage, `images${imageName}`))
-//       )),
-//       ...audioFile.map(audioName => deleteObject(
-//         deleteObject(ref(storage, `audio${audio}`))
-//       ))
-//     ])
-//   } catch (error) {
-//     console.error("Couldn't delete room", error.message);
-//   } finally {
-//     setDeleting(false);
-// }

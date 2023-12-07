@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }) {
   return (
     <main className={plusjakartaSans.className}>
       <Head>
-        <title>Realtime Chat App</title>
+        <title>BlazeChatter | Realtime Chat App</title>
         <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1" />
       </Head>
       <Component {...pageProps} />;
