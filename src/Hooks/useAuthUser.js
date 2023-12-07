@@ -1,5 +1,4 @@
 "use client";
-// useAuth Hook
 import { auth, db } from "@/utils/firebase";
 import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import { useEffect } from "react";
