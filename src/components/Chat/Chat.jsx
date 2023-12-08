@@ -36,9 +36,8 @@ import useRoom from "src/Hooks/useRoom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Link from "next/link";
 
-const Chat = ({ user }) => {
+export default function Chat({ user }) {
   const router = useRouter();
-  const route = useRouter();
   const currentDate = new Date();
 
   const options = {
@@ -157,7 +156,7 @@ const Chat = ({ user }) => {
       {/* chat header */}
       <div className="chat__header">
         <div>
-          <Link href="/" id="backbtn" style={{ zIndex: 50 }}>
+          <Link href="/" id="backbtn">
             <ArrowBackIcon />
           </Link>
         </div>
@@ -226,6 +225,4 @@ const Chat = ({ user }) => {
       )}
     </div>
   );
-};
-
-export default Chat;
+}

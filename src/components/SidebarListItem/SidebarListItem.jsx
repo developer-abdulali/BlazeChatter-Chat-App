@@ -2,15 +2,14 @@ import { Avatar } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 
-const SidebarListItem = ({ item }) => {
+export default function SidebarListItem({ item }) {
   return (
     <Link className="link" href={`/?roomId=${item.id}`}>
       <div className="sidebar__chat">
         <div className="avatar__container">
           <Avatar
             src={
-              item.photoURL ||
-              `https://avatars.dicebear.com/api/jdenticon/${item.id}.svg`
+              item.photoURL
             }
             alt="Avatar"
             style={{ width: "45", height: "45" }}
@@ -22,6 +21,4 @@ const SidebarListItem = ({ item }) => {
       </div>
     </Link>
   );
-};
-
-export default SidebarListItem;
+}

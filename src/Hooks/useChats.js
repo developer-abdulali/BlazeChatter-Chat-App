@@ -4,7 +4,10 @@ import { useCollection } from "react-firebase-hooks/firestore";
 
 export default function useChats(user) {
   const [snapshot] = useCollection(
-    query(collection(db, `users/${user.uid}/chats`), orderBy("timestamp", "asc"))
+    query(
+      collection(db, `users/${user.uid}/chats`),
+      orderBy("timestamp", "asc")
+    )
   );
   const chats = snapshot?.docs.map((doc) => ({
     id: doc.id,

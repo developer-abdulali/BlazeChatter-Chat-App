@@ -257,10 +257,7 @@ em {
     background-color: #ebebeb;
     transition: background-color 200ms;
   }
-  /* #back-btn {
-    z-index: 10;
-    
-  } */
+
 }
 
 @keyframes noresult-fade-in {
@@ -430,6 +427,7 @@ em {
   .sidebar__menu {
     border: none;
   }
+ 
 }
 
 .sidebar__chat--addRoom {
@@ -514,6 +512,9 @@ em {
   .sidebar__chat:hover {
     background-color: #ebebeb;
     transition: background-color 200ms;
+  }
+  #backbtn{
+    display: none;
   }
 }
 

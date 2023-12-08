@@ -1,11 +1,10 @@
-import { CircularProgress } from "@mui/material";
 import React from "react";
 import SidebarListItem from "../SidebarListItem/SidebarListItem";
 import { CancelOutlined, SearchOutlined } from "@mui/icons-material";
 
-const SidebarList = ({ title, data }) => {
+export default function SidebarList({ title, data }) {
   if (!data) {
-    return <CircularProgress />;
+    return <div>Loading...</div>;
   }
   if (!data.length && title === "Search Results") {
     return (
@@ -29,6 +28,4 @@ const SidebarList = ({ title, data }) => {
       ))}
     </div>
   );
-};
-
-export default SidebarList;
+}

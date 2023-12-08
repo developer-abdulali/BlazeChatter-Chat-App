@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import React from "react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 
-const Login = () => {
+export default function Login (){
   const [signInWithGoogle] = useSignInWithGoogle(auth);
   return (
     <div className="app">
@@ -21,6 +21,4 @@ const Login = () => {
       </div>
     </div>
   );
-};
-
-export default Login;
+}

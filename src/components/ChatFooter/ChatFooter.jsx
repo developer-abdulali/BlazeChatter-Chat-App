@@ -1,17 +1,23 @@
 import { db, storage } from "@/utils/firebase";
 import recordAudio from "@/utils/recordAudio";
 import {
-  CancelOutlined,
   CancelRounded,
   CheckCircleRounded,
   MicRounded,
   Send,
 } from "@mui/icons-material";
-import { addDoc, serverTimestamp, collection, doc, setDoc, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  serverTimestamp,
+  collection,
+  doc,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useRef, useState, useEffect } from "react";
 
-const ChatFooter = ({
+export default function ChatFooter({
   sendMessage,
   input,
   onChange,
@@ -20,7 +26,7 @@ const ChatFooter = ({
   room,
   roomId,
   setAudioId,
-}) => {
+}) {
   const record = useRef();
   let timerInterval = useRef();
   const [isRecording, setRecording] = useState(false);
@@ -161,6 +167,4 @@ const ChatFooter = ({
       )}
     </div>
   );
-};
-
-export default ChatFooter;
+}

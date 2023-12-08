@@ -48,7 +48,7 @@ const tabs = [
   },
 ];
 
-const Sidebar = ({ user }) => {
+export default function Sidebar({ user }) {
   const [menu, setMenu] = useState(1);
   const [creatingRoom, setCreatingRoom] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
@@ -101,7 +101,6 @@ const Sidebar = ({ user }) => {
 
   return (
     <div className="sidebar">
-    
       {/* hearder */}
       <div className="sidebar__header">
         <div className="sidebar__header--left">
@@ -116,7 +115,7 @@ const Sidebar = ({ user }) => {
       </div>
 
       {/* search */}
-      <div className="sidebar__search">
+      {/* <div className="sidebar__search">
         <form
           onSubmit={searchResultsAndRoom}
           className="sidebar__search--container"
@@ -128,7 +127,7 @@ const Sidebar = ({ user }) => {
             placeholder="Search for user or rooms"
           />
         </form>
-      </div>
+      </div> */}
 
       {/* sidebar tabs */}
       <div className="sidebar__menu">
@@ -200,6 +199,4 @@ const Sidebar = ({ user }) => {
       </div>
     </div>
   );
-};
-
-export default Sidebar;
+}
