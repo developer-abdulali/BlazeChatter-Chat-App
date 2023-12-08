@@ -49,6 +49,17 @@ import React from "react";
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
 
 const ChatMessages = ({ messages, user, roomId, audioId, setAudioId }) => {
+  const currentDate = new Date();
+
+  const options = {
+    timeZone: "Asia/Karachi",
+    weekday: "long",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  };
+  const PakistaniDateTime = currentDate.toLocaleString("en-US", options);
+
   if (!messages) return null;
 
   return messages.map((message) => {
@@ -76,12 +87,13 @@ const ChatMessages = ({ messages, user, roomId, audioId, setAudioId }) => {
             roomId={roomId}
             id={message.id}
             audioUrl={message.audioUrl}
+            audioId={audioId}
             setAudioId={setAudioId}
           />
         ) : (
           <span className="chat__message--message">{message.message}</span>
         )}
-        <span className="chat__timestamp">{message.time}</span>
+        <span className="chat__timestamp">{PakistaniDateTime}</span>
       </div>
     );
   });

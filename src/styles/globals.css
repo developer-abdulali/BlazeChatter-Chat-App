@@ -257,9 +257,10 @@ em {
     background-color: #ebebeb;
     transition: background-color 200ms;
   }
-  #backbtn {
-    display: none;
-  }
+  /* #back-btn {
+    z-index: 10;
+    
+  } */
 }
 
 @keyframes noresult-fade-in {

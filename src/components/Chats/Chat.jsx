@@ -35,11 +35,20 @@ import ChatMessages from "../ChatMessages/ChatMessages";
 import useRoom from "src/Hooks/useRoom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Link from "next/link";
-// import { useRouter } from "next/router";
 
 const Chat = ({ user }) => {
   const router = useRouter();
   const route = useRouter();
+  const currentDate = new Date();
+
+  const options = {
+    timeZone: "Asia/Karachi",
+    weekday: "long",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  };
+  const PakistaniDateTime = currentDate.toLocaleString("en-US", options);
   const [image, setImage] = useState(null);
   const [input, setInput] = useState("");
   const [src, setSrc] = useState("");
@@ -143,12 +152,15 @@ const Chat = ({ user }) => {
   return (
     <div className="chat">
       {/* go back button */}
-      <Link href="/" className="sidebar__header" id="backbtn" style={{ zIndex: 50 }}>
-        <ArrowBackIcon />
-      </Link>
       <div className="chat__background" />
+
       {/* chat header */}
       <div className="chat__header">
+        <div>
+          <Link href="/" id="backbtn" style={{ zIndex: 50 }}>
+            <ArrowBackIcon />
+          </Link>
+        </div>
         <div className="avatar__container">
           <Avatar src={room.photoURL} alt={room.name} />
         </div>
