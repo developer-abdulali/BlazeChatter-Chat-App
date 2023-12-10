@@ -684,6 +684,9 @@ em {
   .login__container {
     padding: 50px 25px;
   }
+  .app {
+    height: 90vh;
+  }
 }
 
 /* ChatFooter */
