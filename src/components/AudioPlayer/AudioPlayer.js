@@ -6,8 +6,8 @@ export default function AudioPlayer({
   sender,
   audioUrl,
   id,
-  setAudioId,
   audioId,
+  setAudioId,
 }) {
   const [isPlaying, setPlaying] = useState(false);
   const [isMediaLoaded, setMediaLoaded] = useState(false);
